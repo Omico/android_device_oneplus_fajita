@@ -1,0 +1,136 @@
+LOCAL_PATH := device/$(PRODUCT_BRAND)/$(TARGET_DEVICE)
+
+# A/B
+AB_OTA_UPDATER := true
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-2a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := cortex-a75
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a75
+
+ENABLE_CPUSETS := true
+ENABLE_SCHEDBOOST := true
+
+# Boot control
+USE_COMMON_BOOTCTRL := true
+USE_COMMON_GPTUTILS := true
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := sdm845
+TARGET_NO_BOOTLOADER := true
+TARGET_USES_UEFI := true
+
+# Encryption (HACK)
+PLATFORM_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 16.1.0
+
+# Kernel
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7
+BOARD_KERNEL_CMDLINE += skip_override androidboot.fastboot=1
+BOARD_KERNEL_PAGESIZE := 4096
+
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/$(BOARD_KERNEL_IMAGE_NAME)
+
+# Platform
+QCOM_BOARD_PLATFORMS += sdm845
+TARGET_BOARD_PLATFORM := sdm845
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno630
+
+# Partitions
+BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
+BOARD_FLASH_BLOCK_SIZE := 262144
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
+BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
+BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2998927360
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 118112366592
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+TARGET_NO_KERNEL := false
+TARGET_NO_RECOVERY := false
+
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_USES_RECOVERY_AS_BOOT := true
+
+# Recovery
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+
+RECOVERY_SDCARD_ON_DATA := true
+
+TARGET_RECOVERY_PIXEL_FORMAT := BGRA_8888
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TARGET_USES_MKE2FS := true
+TARGET_COPY_OUT_VENDOR := vendor
+
+# TWRP
+TW_THEME := portrait_hdpi
+
+TW_INPUT_BLACKLIST := "hbtp_vm"
+
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_DEFAULT_BRIGHTNESS := 420
+TW_MAX_BRIGHTNESS := 1023
+
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file
+
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
+
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
+TARGET_RECOVERY_WIPE := $(LOCAL_PATH)/recovery.wipe
+
+USE_RECOVERY_INSTALLER := true
+RECOVERY_INSTALLER_PATH := bootable/recovery/installer
+
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXTRA_LANGUAGES := true
+TW_HAS_EDL_MODE := true
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_NO_SCREEN_BLANK := true
+TW_NO_USB_STORAGE := true
+TW_USE_LEDS_HAPTICS := true
+TW_USE_TOOLBOX := true
+
+TARGET_RECOVERY_DEVICE_MODULES += \
+    android.hardware.boot@1.0 \
+    android.hardware.boot@1.0-service \
+    android.hidl.base@1.0 \
+    libicuuc \
+    libion \
+    libprocinfo \
+    libxml2
+
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/android.hidl.base@1.0.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libprocinfo.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
+    $(TARGET_OUT_VENDOR_EXECUTABLES)/hw/android.hardware.boot@1.0-service
+
